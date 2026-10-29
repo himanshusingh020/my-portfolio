@@ -1,622 +1,1065 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Himanshu Singh Portfolio</title>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta name="theme-color" content="#10152b">
+    <meta name="description" content="Himanshu Singh - MERN Stack Developer Portfolio">
+    <title>Himanshu Singh | Developer Portfolio</title>
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons and animations -->
+    <script src="https://unpkg.com/feather-icons"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        :root {
+            --dark: #10152b;
+            --purple: #7657ff;
+            --pink: #e84db7;
+            --aqua: #29d7d0;
+            --light: #fbfaff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0f172a;
-            color: #e2e8f0;
+            background: var(--light);
+            color: #20213b;
         }
 
         .gradient-text {
-            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            background: linear-gradient(
+                100deg,
+                var(--purple),
+                var(--pink),
+                var(--aqua)
+            );
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        .gradient-bg {
+            background: linear-gradient(
+                120deg,
+                var(--purple),
+                var(--pink),
+                #8b5cf6
+            );
         }
 
-        .skill-bar {
-            transition: width 2s ease-in-out;
+        .section-label {
+            color: var(--purple);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
+
+        .section-title {
+            color: var(--dark);
+            font-size: clamp(32px, 4vw, 44px);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+        }
+
+        .section-copy {
+            color: #686b86;
+            line-height: 1.9;
+        }
+
+        .project-card,
+        .skill-card {
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover,
+        .skill-card:hover {
+            transform: translateY(-7px);
+            border-color: #b7a7ff;
+            box-shadow: 0 20px 45px rgba(118, 87, 255, 0.14);
+        }
+
+        .contact-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e4def8;
+            border-radius: 12px;
+            outline: none;
+            background: #faf9ff;
+            transition: 0.2s;
+        }
+
+        .contact-input:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 0 3px rgba(118, 87, 255, 0.13);
+        }
+
+        #home {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    ellipse at 85% 15%,
+                    rgba(118, 87, 255, 0.15),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    ellipse at 15% 80%,
+                    rgba(41, 215, 208, 0.12),
+                    transparent 32%
+                ),
+                var(--light);
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(
+                135deg,
+                rgba(118, 87, 255, 0.18),
+                rgba(232, 77, 183, 0.12),
+                rgba(41, 215, 208, 0.14)
+            );
+            filter: blur(65px);
+            z-index: -1;
+            right: -80px;
+            top: 20%;
+        }
+
+        .profile-frame {
+            background: linear-gradient(
+                135deg,
+                var(--purple),
+                var(--pink),
+                var(--aqua)
+            );
+            padding: 5px;
+            transform: rotate(3deg);
+            transition: 0.3s;
+        }
+
+        .profile-frame:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        #skills {
+            background: var(--dark);
+            color: white;
+        }
+
+        #skills .section-title {
+            color: white;
+        }
+
+        #skills .section-copy {
+            color: #b9bdd6;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.055);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .skill-tag {
+            background: rgba(118, 87, 255, 0.15);
+            border: 1px solid rgba(180, 160, 255, 0.2);
+            color: #e0d9ff;
+        }
+
+        .gradient-border {
+            border: 1px solid transparent;
+            background:
+                linear-gradient(white, white) padding-box,
+                linear-gradient(
+                    120deg,
+                    var(--purple),
+                    var(--pink),
+                    var(--aqua)
+                ) border-box;
+        }
+
+        .nav-link {
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--purple);
+        }
+
+        .primary-button {
+            background: linear-gradient(
+                110deg,
+                var(--purple),
+                var(--pink)
+            );
+            transition: all 0.25s;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(118, 87, 255, 0.25);
+        }
+
+        @media (max-width: 640px) {
+            .section-title {
+                letter-spacing: -1px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+      
     </style>
 </head>
 
-<body class="min-h-screen">
-    <header class="fixed w-full bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-800">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <a href="#" class="text-2xl font-bold gradient-text">Himanshu Singh Portfolio</a>
-                <nav class="hidden md:flex space-x-8">
-                    <a href="#home" class="hover:text-indigo-400 transition">Home</a>
-                    <a href="#about" class="hover:text-indigo-400 transition">About</a>
-                    <a href="#projects" class="hover:text-indigo-400 transition">Projects</a>
-                    <a href="#skills" class="hover:text-indigo-400 transition">Skills</a>
-                    <a href="#contact" class="hover:text-indigo-400 transition">Contact</a>
-                </nav>
-                <button class="md:hidden focus:outline-none" id="menu-toggle">
-                    <i data-feather="menu"></i>
-                </button>
-            </div>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-xl border-b border-purple-100">
+        <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+
+            <a href="#home" class="text-2xl font-extrabold gradient-text">
+                Himanshu.
+            </a>
+
+            <nav class="hidden md:flex gap-7 text-sm font-semibold text-slate-600">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <a href="#contact"
+               class="hidden md:inline-block primary-button text-white px-5 py-2.5 rounded-xl font-semibold">
+                Let's Talk
+            </a>
+
+            <button id="menu-toggle"
+                    class="md:hidden p-2 text-purple-600"
+                    aria-label="Toggle menu"
+                    aria-expanded="false">
+                <i data-feather="menu"></i>
+            </button>
         </div>
-        <!-- Mobile Menu -->
-        <div class="md:hidden hidden bg-gray-900 w-full py-4 px-6" id="mobile-menu">
-            <div class="flex flex-col space-y-4">
-                <a href="#home" class="hover:text-indigo-400 transition">Home</a>
-                <a href="#about" class="hover:text-indigo-400 transition">About</a>
-                <a href="#projects" class="hover:text-indigo-400 transition">Projects</a>
-                <a href="#skills" class="hover:text-indigo-400 transition">Skills</a>
-                <a href="#contact" class="hover:text-indigo-400 transition">Contact</a>
+
+        <nav id="mobile-menu"
+             class="hidden md:hidden bg-white border-t border-purple-100 px-6 py-5">
+            <div class="flex flex-col gap-5 font-semibold text-slate-600">
+                <a href="#home" class="mobile-link">Home</a>
+                <a href="#about" class="mobile-link">About</a>
+                <a href="#projects" class="mobile-link">Projects</a>
+                <a href="#skills" class="mobile-link">Skills</a>
+                <a href="#contact" class="mobile-link">Contact</a>
             </div>
-        </div>
+        </nav>
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section id="home" class="min-h-screen flex items-center pt-20">
-            <div class="container mx-auto px-6 py-20">
-                <div class="flex flex-col md:flex-row items-center">
-                    <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
-                        <h1 class="text-4xl md:text-6xl font-bold mb-4">Hi, I'm <span class="gradient-text">Himanshu
-                                Singh</span></h1>
-                        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-gray-400">React Developer & UI
-                            Designer</h2>
-                        <p class="text-lg mb-8 text-gray-300 max-w-lg">I create beautiful, responsive websites with
-                            modern technologies and pixel-perfect designs.</p>
-                        <div class="flex space-x-4">
-                            <a href="#contact"
-                                class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg font-medium transition">Get
-                                In Touch</a>
+
+        <!-- HERO SECTION -->
+        <section id="home" class="min-h-screen flex items-center pt-28 pb-16">
+            <div class="hero-glow"></div>
+
+            <div class="max-w-6xl mx-auto px-6 w-full">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+
+                    <div data-aos="fade-right">
+                        <p class="section-label mb-5">
+                            B.Tech CSE Student · Developer
+                        </p>
+
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-slate-900 mb-5">
+                            Hi, I'm
+                            <span class="gradient-text">Himanshu Singh</span>
+                        </h1>
+
+                        <h2 class="text-2xl font-bold text-slate-600 mb-5">
+                            MERN Stack Developer
+                        </h2>
+
+                        <p class="section-copy text-lg max-w-xl mb-8">
+                            I build responsive websites and web applications.
+                            I enjoy turning creative ideas into useful digital
+                            experiences with clean design and modern technology.
+                        </p>
+
+                        <div class="flex flex-wrap gap-4">
                             <a href="#projects"
-                                class="px-6 py-3 border border-gray-700 hover:border-indigo-500 rounded-lg font-medium transition">View
-                                Work</a>
+                               class="primary-button inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white font-semibold">
+                                View My Work
+                                <i data-feather="arrow-up-right" class="w-4 h-4"></i>
+                            </a>
+
+                            <a href="#contact"
+                               class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-purple-200 text-slate-700 font-semibold hover:border-purple-400 transition">
+                                Contact Me
+                                <i data-feather="mail" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+
+                        <div class="flex items-center gap-5 mt-9">
+                            <a href=https://github.com/himanshusingh020
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="GitHub"
+                               class="text-slate-500 hover:text-purple-600 transition">
+                                <i data-feather="github" class="w-6 h-6"></i>
+                            </a>
+
+                            <a href="https://www.linkedin.com/in/himanshu-singh-b7450b327"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="LinkedIn"
+                               class="text-slate-500 hover:text-purple-600 transition">
+                                <i data-feather="linkedin" class="w-6 h-6"></i>
+                            </a>
+
+                            <span class="text-sm text-slate-500">
+                                Always learning & building
+                            </span>
                         </div>
                     </div>
-                 <div class="md:w-1/2 flex justify-center" data-aos="fade-left">
-    <div class="relative">
 
-        <!-- Background Circle -->
-        <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center">
+                    <div class="flex justify-center md:justify-end"
+                         data-aos="fade-left">
 
-            <!-- IMAGE -->
-            <img  
-                class="w-60 h-60 md:w-72 md:h-72 rounded-full object-cover border-4 border-gray-800"
-                src="image1.jpeg"
-                alt="Himanshu"
-            >
+                        <div class="relative w-64 h-64 sm:w-80 sm:h-80">
+                            <div class="profile-frame absolute inset-0 rounded-[2rem]"></div>
 
-        </div>
+                            <div class="absolute inset-0 rounded-[2rem] overflow-hidden bg-white shadow-xl">
+                                <img src="image1.jpeg"
+                                     alt="Himanshu Singh"
+                                     class="w-full h-full object-cover"
+                                     onerror="this.style.display='none'; document.getElementById('profile-fallback').style.display='flex';">
 
-        <!-- Status Box -->
-        <div class="absolute -bottom-5 -right-5 bg-gray-800 p-4 rounded-lg shadow-lg">
-            <div class="flex items-center">
-                <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
-                <span class="text-sm">Available for work</span>
-            </div>
-        </div>
+                                <div id="profile-fallback"
+                                     class="hidden w-full h-full items-center justify-center text-7xl font-extrabold gradient-text">
+                                    HS
+                                </div>
+                            </div>
 
-    </div>
-</div>
+                            <div class="absolute -bottom-5 -left-5 bg-white border border-purple-100 shadow-lg rounded-2xl px-4 py-3 flex items-center gap-3">
+                                <span class="w-3 h-3 rounded-full bg-teal-400"></span>
+                                <span class="text-sm font-semibold text-slate-700">
+                                    Open to opportunities
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <!-- About Section FIXED -->
-<section id="about" class="py-20 bg-gray-900/50">
-    <div class="container mx-auto px-6">
-        <h2 class="text-3xl font-bold mb-16 text-center" data-aos="fade-up">About Me</h2>
+        <!-- ABOUT SECTION -->
+        <section id="about" class="py-20 md:py-24"
+                 style="background: linear-gradient(135deg,#f4f1ff,#fbfaff 55%,#eafffd);">
 
-        <div class="flex flex-col md:flex-row items-center">
-            
-            <!-- IMAGE PART -->
-            <div class="md:w-1/3 mb-10 md:mb-0 flex justify-center" data-aos="fade-right">
-                <div class="relative">
+            <div class="max-w-6xl mx-auto px-6">
 
-                    <!-- Background box -->
-                    <div class="w-64 h-64 rounded-lg bg-gradient-to-br from-indigo-600 to-purple-600"></div>
+                <div class="text-center mb-14" data-aos="fade-up">
+                    <p class="section-label mb-3">Get to know me</p>
+                    <h2 class="section-title">About Me</h2>
+                    <p class="section-copy max-w-2xl mx-auto mt-4">
+                        A computer science student passionate about web
+                        development, modern interfaces and useful applications.
+                    </p>
+                </div>
 
-                    <!-- Image -->
-                    <img  
-                        class="absolute top-4 left-4 w-64 h-64 rounded-lg object-cover border-4 border-gray-800"
-                        src="image1.jpeg"
-                        alt="Himanshu"
-                    >
+                <div class="grid md:grid-cols-5 gap-10 md:gap-14 items-center">
 
+                    <div class="md:col-span-2" data-aos="fade-right">
+                        <div class="relative max-w-sm mx-auto">
+                            <div class="absolute -inset-3 rounded-2xl gradient-bg opacity-20 rotate-3"></div>
+
+                            <img src="image1.jpeg"
+                                 alt="Himanshu Singh"
+                                 class="relative w-full h-80 md:h-96 object-cover rounded-2xl border-4 border-white shadow-xl"
+                                 onerror="this.style.display='none'; document.getElementById('about-fallback').style.display='flex';">
+
+                            <div id="about-fallback"
+                                 class="hidden relative w-full h-80 md:h-96 items-center justify-center rounded-2xl bg-purple-100 text-7xl font-extrabold gradient-text">
+                                HS
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-3" data-aos="fade-left">
+                        <p class="font-semibold mb-2" style="color:#7657ff;">
+                            Hello, I'm Himanshu!
+                        </p>
+
+                        <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-5">
+                            Building the web, one project at a time.
+                        </h3>
+
+                        <p class="section-copy mb-4">
+                            I am pursuing a B.Tech in Computer Science and
+                            Engineering at Shri Ramswaroop Memorial University.
+                            I am interested in creating modern, responsive and
+                            user-friendly web applications.
+                        </p>
+
+                        <p class="section-copy mb-7">
+                            I work with frontend technologies and am learning
+                            full-stack development using the MERN stack.
+                            I enjoy building projects, solving problems and
+                            continuously improving my development skills.
+                        </p>
+
+                        <div class="grid sm:grid-cols-2 gap-4 mb-8">
+
+                            <div class="bg-white border border-purple-100 rounded-xl p-5">
+                                <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-3"
+                                     style="background:#f0ebff;color:#7657ff;">
+                                    <i data-feather="code"></i>
+                                </div>
+                                <h4 class="font-bold text-slate-900 mb-2">
+                                    Web Development
+                                </h4>
+                                <p class="text-sm text-slate-500 leading-6">
+                                    Responsive websites and interactive interfaces.
+                                </p>
+                            </div>
+
+                            <div class="bg-white border border-purple-100 rounded-xl p-5">
+                                <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-3"
+                                     style="background:#e8fffd;color:#089e98;">
+                                    <i data-feather="book-open"></i>
+                                </div>
+                                <h4 class="font-bold text-slate-900 mb-2">
+                                    Continuous Learning
+                                </h4>
+                                <p class="text-sm text-slate-500 leading-6">
+                                    Learning new technologies through projects.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <a href="#projects"
+                           class="primary-button inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white font-semibold">
+                            Explore Projects
+                            <i data-feather="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- TEXT PART -->
-            <div class="md:w-2/3 md:pl-16" data-aos="fade-left">
-                <h3 class="text-2xl font-semibold mb-4">Who am I?</h3>
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="py-20 md:py-24 bg-white">
+            <div class="max-w-6xl mx-auto px-6">
 
-                <p class="text-gray-300 mb-6">
-                    I'm a passionate React developer with 1+ years of experience
-                    creating modern web applications. I specialize in React js, Bootstrap 
-                    and responsive design principles.
-                </p>
-
-                <p class="text-gray-300 mb-8">
-                    My journey in web development started when I was in university.
-                </p>
-
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-medium">Experience</h4>
-                        <p class="text-gray-400">1+ Years</p>
-                    </div>
-
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-medium">Projects</h4>
-                        <p class="text-gray-400">5+ Completed</p>
-                    </div>
-
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-medium">Clients</h4>
-                        <p class="text-gray-400">2+ Worldwide</p>
-                    </div>
-
+                <div class="text-center mb-14" data-aos="fade-up">
+                    <p class="section-label mb-3">Things I've worked on</p>
+                    <h2 class="section-title">My Projects</h2>
+                    <p class="section-copy max-w-2xl mx-auto mt-4">
+                        A selection of projects where I practise development
+                        and build useful web experiences.
+                    </p>
                 </div>
-            </div>
 
-        </div>
-    </div>
-</section>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
 
-        <!-- Projects Section -->
-        <section id="projects" class="py-20">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold mb-4 text-center" data-aos="fade-up">My Projects</h2>
-                <p class="text-gray-400 text-center mb-16 max-w-2xl mx-auto" data-aos="fade-up">Here are some of my
-                    recent projects. Each one was carefully crafted to solve specific problems.</p>
+                    <!-- ZENTORA -->
+                    <article class="project-card border border-purple-100 rounded-2xl overflow-hidden bg-white"
+                             data-aos="fade-up">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Project 1 -->
-                    <div class="bg-gray-800 rounded-xl overflow-hidden project-card transition duration-300"
-                        data-aos="fade-up" data-aos-delay="100">
-                        <div
-                            class="h-48 bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
-                            <i data-feather="monitor" class="w-16 h-16 text-white"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">E-Commerce Dashboard</h3>
-                            <p class="text-gray-400 mb-4">A comprehensive dashboard for e-commerce businesses with
-                                analytics and inventory management.</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="px-3 py-1 bg-gray-700 rounded-full text-sm">React</span>
-                                <span class="px-3 py-1 bg-gray-700 rounded-full text-sm">Chart.js</span>
-                                <span class="px-3 py-1 bg-gray-700 rounded-full text-sm">Firebase</span>
+                        <div class="h-48 flex items-center justify-center"
+                             style="background:linear-gradient(135deg,#7657ff,#e84db7,#29d7d0);">
+                            <div class="text-center text-white">
+                                <i data-feather="briefcase" class="w-14 h-14 mx-auto mb-3"></i>
+                                <h3 class="text-2xl font-extrabold">ZENTORA</h3>
                             </div>
-                            <a href="#" class="text-indigo-400 hover:text-indigo-300 flex items-center">
-                                View Project <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                        </div>
+
+                        <div class="p-6">
+                            <p class="section-label mb-2">Web Project</p>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3">
+                                Zentora
+                            </h3>
+
+                            <p class="text-slate-600 text-sm leading-7 mb-5">
+                                A web project focused on presenting services
+                                through an attractive interface and responsive design.
+                            </p>
+
+                            <div class="flex flex-wrap gap-2 mb-5">
+                                <span class="px-3 py-1.5 rounded-full text-xs font-semibold"
+                                      style="background:#f0ebff;color:#6241ed;">
+                                    Web Design
+                                </span>
+                                <span class="px-3 py-1.5 rounded-full text-xs font-semibold"
+                                      style="background:#e8fffd;color:#087f79;">
+                                    Responsive UI
+                                </span>
+                            </div>
+
+                            <a href="https://zen-tora-xglw.vercel.app/"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="inline-flex items-center gap-2 font-semibold"
+                               style="color:#7657ff;">
+                                Live Demo
+                                <i data-feather="external-link" class="w-4 h-4"></i>
                             </a>
                         </div>
-                    </div>
+                    </article>
 
-                    <!-- Project 2 -->
-                    <div class="bg-gray-800 rounded-xl overflow-hidden project-card transition duration-300"
-                        data-aos="fade-up" data-aos-delay="200">
-                        <div class="h-48 bg-gradient-to-r from-blue-500 to-teal-400 flex items-center justify-center">
-                            <i data-feather="smartphone" class="w-16 h-16 text-white"></i>
+                    <!-- ROMALY -->
+                    <article class="project-card border border-purple-100 rounded-2xl overflow-hidden bg-white"
+                             data-aos="fade-up" data-aos-delay="100">
+
+                        <div class="h-48 flex items-center justify-center"
+                             style="background:linear-gradient(135deg,#e84db7,#7657ff);">
+                            <i data-feather="layers" class="w-16 h-16 text-white"></i>
                         </div>
+
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Fitness Mobile App</h3>
-                            <p class="text-gray-400 mb-4">A cross-platform mobile application for tracking workouts and
-                                nutrition with social features.</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="px-3 py-1 bg-gray-700 rounded-full text-sm">React Native</span>
-                                <span class="px-3 py-1 bg-gray-700 rounded-full text-sm">Redux</span>
-                                <span class="px-3 py-1 bg-gray-700 rounded-full text-sm">Node.js</span>
+                            <p class="section-label mb-2">Web Project</p>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3">
+                                Romaly
+                            </h3>
+
+                            <p class="text-slate-600 text-sm leading-7 mb-5">
+                                A web project focused on a clean interface
+                                and responsive user experience.
+                            </p>
+
+                            <div class="flex flex-wrap gap-2 mb-5">
+                                <span class="px-3 py-1.5 rounded-full text-xs font-semibold"
+                                      style="background:#fce7f3;color:#be185d;">
+                                    Web Development
+                                </span>
+                                <span class="px-3 py-1.5 rounded-full text-xs font-semibold"
+                                      style="background:#f0ebff;color:#6241ed;">
+                                    Responsive UI
+                                </span>
                             </div>
-                            <a href="#" class="text-indigo-400 hover:text-indigo-300 flex items-center">
-                                View Project <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+
+                            <!-- Replace #contact with your actual Romaly project URL -->
+                         <a href="https://roamly-project.vercel.app/"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="inline-flex items-center gap-2 font-semibold"
+                               style="color:#7657ff;">
+                                Live Demo
+                                <i data-feather="external-link" class="w-4 h-4"></i>
                             </a>
                         </div>
-                    </div>
+                    </article>
 
-                    <!-- Project 3 -->
-                    <div class="bg-gray-800 rounded-xl overflow-hidden project-card transition duration-300"
-                        data-aos="fade-up" data-aos-delay="300">
-                        <div class="h-48 bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                    <!-- WANDERLUST -->
+                    <article class="project-card border border-purple-100 rounded-2xl overflow-hidden bg-white"
+                             data-aos="fade-up" data-aos-delay="200">
+
+                        <div class="h-48 flex items-center justify-center"
+                             style="background:linear-gradient(135deg,#10152b,#7657ff,#29d7d0);">
                             <i data-feather="globe" class="w-16 h-16 text-white"></i>
                         </div>
+
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Travel Booking Platform</h3>
-                            <p class="text-gray-400 mb-4">A full-stack platform for booking flights, hotels, and
-                                experiences with secure payments.</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="px-3 py-1 bg-gray-700 rounded-full text-sm">Vue.js</span>
-                                <span class="px-3 py-1 bg-gray-700 rounded-full text-sm">Laravel</span>
-                                <span class="px-3 py-1 bg-gray-700 rounded-full text-sm">Stripe</span>
+                            <p class="section-label mb-2">Full-Stack Project</p>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3">
+                                Wanderlust
+                            </h3>
+
+                            <p class="text-slate-600 text-sm leading-7 mb-5">
+                                A travel listing application with features
+                                to create, view, edit and delete listings.
+                            </p>
+
+                            <div class="flex flex-wrap gap-2 mb-5">
+                                <span class="px-3 py-1.5 rounded-full text-xs font-semibold"
+                                      style="background:#f0ebff;color:#6241ed;">
+                                    Node.js
+                                </span>
+                                <span class="px-3 py-1.5 rounded-full text-xs font-semibold"
+                                      style="background:#e8fffd;color:#087f79;">
+                                    Express.js
+                                </span>
+                                <span class="px-3 py-1.5 rounded-full text-xs font-semibold"
+                                      style="background:#fce7f3;color:#be185d;">
+                                    MongoDB
+                                </span>
                             </div>
-                            <a href="#" class="text-indigo-400 hover:text-indigo-300 flex items-center">
-                                View Project <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+
+                            <a href="#contact"
+                               class="inline-flex items-center gap-2 font-semibold"
+                               style="color:#7657ff;">
+                                Project Details
+                                <i data-feather="arrow-right" class="w-4 h-4"></i>
                             </a>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills" class="py-20 md:py-24">
+            <div class="max-w-6xl mx-auto px-6">
+
+                <div class="text-center mb-14" data-aos="fade-up">
+                    <p class="section-label mb-3">What I work with</p>
+                    <h2 class="section-title">My Skills</h2>
+                    <p class="section-copy max-w-2xl mx-auto mt-4">
+                        Technologies and tools I use while learning and building
+                        web development projects.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+
+                    <!-- FRONTEND -->
+                    <div class="skill-card rounded-2xl p-7" data-aos="fade-up">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
+                             style="background:rgba(118,87,255,.2);color:#b5a4ff;">
+                            <i data-feather="monitor" class="w-6 h-6"></i>
+                        </div>
+
+                        <h3 class="text-xl font-bold mb-3">
+                            Frontend Development
+                        </h3>
+
+                        <p class="text-sm leading-7 mb-6" style="color:#b9bdd6;">
+                            Building responsive interfaces and interactive
+                            web experiences.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">HTML5</span>
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">CSS3</span>
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">JavaScript</span>
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">React.js</span>
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Tailwind CSS</span>
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Bootstrap</span>
+                        </div>
+                    </div>
+
+                    <!-- BACKEND -->
+                    <div class="skill-card rounded-2xl p-7"
+                         data-aos="fade-up" data-aos-delay="100">
+
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
+                             style="background:rgba(41,215,208,.15);color:#29d7d0;">
+                            <i data-feather="server" class="w-6 h-6"></i>
+                        </div>
+
+                        <h3 class="text-xl font-bold mb-3">
+                            Backend Development
+                        </h3>
+
+                        <p class="text-sm leading-7 mb-6" style="color:#b9bdd6;">
+                            Learning server-side development, APIs and
+                            database integration.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Node.js</span>
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Express.js</span>
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">MongoDB</span>
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Mongoose</span>
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">REST APIs</span>
+                        </div>
+                    </div>
+
+                    <!-- TOOLS -->
+                    <div class="skill-card rounded-2xl p-7"
+                         data-aos="fade-up" data-aos-delay="200">
+
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
+                             style="background:rgba(232,77,183,.15);color:#f28bd1;">
+                            <i data-feather="tool" class="w-6 h-6"></i>
+                        </div>
+
+                        <h3 class="text-xl font-bold mb-3">
+                            Tools & Workflow
+                        </h3>
+
+                        <p class="text-sm leading-7 mb-6" style="color:#b9bdd6;">
+                            Tools for coding, version control and project development.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Git</span>
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">GitHub</span>
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">VS Code</span>
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">npm</span>
+                            <span class="skill-tag px-3 py-2 rounded-lg text-sm">C++</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-10 rounded-2xl p-7 md:p-8"
+                     style="background:linear-gradient(110deg,rgba(118,87,255,.13),rgba(232,77,183,.08),rgba(41,215,208,.10));border:1px solid rgba(180,160,255,.18);"
+                     data-aos="fade-up">
+
+                    <div class="flex flex-col sm:flex-row gap-5 items-start sm:items-center">
+                        <div class="w-12 h-12 shrink-0 rounded-xl flex items-center justify-center"
+                             style="background:rgba(118,87,255,.2);color:#b5a4ff;">
+                            <i data-feather="trending-up" class="w-6 h-6"></i>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">
+                                Always Learning, Always Building
+                            </h3>
+                            <p class="leading-7" style="color:#b9bdd6;">
+                                I improve my skills through hands-on projects,
+                                coding practice and exploring new development
+                                concepts. My goal is to build reliable and
+                                user-friendly web applications.
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="text-center mt-12" data-aos="fade-up">
-                    <a href="#"
-                        class="px-6 py-3 border border-gray-700 hover:border-indigo-500 rounded-lg font-medium transition inline-flex items-center">
-                        View All Projects <i data-feather="arrow-right" class="ml-2"></i>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="py-20 md:py-24 bg-white">
+            <div class="max-w-6xl mx-auto px-6">
+
+                <div class="text-center mb-14" data-aos="fade-up">
+                    <p class="section-label mb-3">Let's connect</p>
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p class="section-copy max-w-2xl mx-auto mt-4">
+                        Have an opportunity, project idea or question?
+                        Feel free to reach out.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-5 gap-8">
+
+                    <!-- CONTACT DETAILS -->
+                    <div class="md:col-span-2 rounded-2xl p-7 md:p-8 text-white"
+                         style="background:linear-gradient(145deg,#10152b,#39246e 65%,#7657ff);"
+                         data-aos="fade-right">
+
+                        <h3 class="text-2xl font-bold mb-3">
+                            Let's talk!
+                        </h3>
+
+                        <p class="leading-7 mb-8" style="color:#d8d5f0;">
+                            I'm interested in web development opportunities,
+                            collaborations and projects that help me grow.
+                        </p>
+
+                        <div class="space-y-6">
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-11 h-11 shrink-0 rounded-xl bg-white/10 flex items-center justify-center">
+                                    <i data-feather="mail"></i>
+                                </div>
+
+                                <div>
+                                    <p class="text-sm mb-1" style="color:#c7bfff;">
+                                        Email
+                                    </p>
+                                    <a href="mailto:dhanjisingh00002007@gmail.com"
+                                       class="font-medium break-all hover:underline">
+                                        dhanjisingh00002007@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-11 h-11 shrink-0 rounded-xl bg-white/10 flex items-center justify-center">
+                                    <i data-feather="map-pin"></i>
+                                </div>
+
+                                <div>
+                                    <p class="text-sm mb-1" style="color:#c7bfff;">
+                                        Location
+                                    </p>
+                                    <p class="font-medium">
+                                        Lucknow, Uttar Pradesh, India
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-10 pt-7 border-t border-white/20">
+                            <p class="font-semibold mb-4">Find me online</p>
+
+                            <div class="flex gap-3">
+                                <a href=https://github.com/himanshusingh020
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   aria-label="GitHub"
+                                   class="w-11 h-11 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition">
+                                    <i data-feather="github"></i>
+                                </a>
+
+                                <a href="https://www.linkedin.com/in/himanshu-singh-b7450b327"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   aria-label="LinkedIn"
+                                   class="w-11 h-11 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition">
+                                    <i data-feather="linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONTACT FORM -->
+                    <div class="md:col-span-3 bg-white border border-purple-100 rounded-2xl p-7 md:p-8 shadow-sm"
+                         data-aos="fade-left">
+
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">
+                            Send a Message
+                        </h3>
+
+                        <p class="text-slate-500 text-sm mb-7">
+                            Fill in the details below to get in touch.
+                        </p>
+
+                        <form id="contact-form">
+
+                            <div class="grid sm:grid-cols-2 gap-5 mb-5">
+                                <div>
+                                    <label for="name"
+                                           class="block text-sm font-semibold text-slate-700 mb-2">
+                                        Your Name
+                                    </label>
+
+                                    <input type="text"
+                                           id="name"
+                                           name="name"
+                                           required
+                                           autocomplete="name"
+                                           class="contact-input"
+                                           placeholder="Enter your name">
+                                </div>
+
+                                <div>
+                                    <label for="email"
+                                           class="block text-sm font-semibold text-slate-700 mb-2">
+                                        Your Email
+                                    </label>
+
+                                    <input type="email"
+                                           id="email"
+                                           name="email"
+                                           required
+                                           autocomplete="email"
+                                           class="contact-input"
+                                           placeholder="you@example.com">
+                                </div>
+                            </div>
+
+                            <div class="mb-5">
+                                <label for="subject"
+                                       class="block text-sm font-semibold text-slate-700 mb-2">
+                                    Subject
+                                </label>
+
+                                <input type="text"
+                                       id="subject"
+                                       name="subject"
+                                       required
+                                       class="contact-input"
+                                       placeholder="What is this regarding?">
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="message"
+                                       class="block text-sm font-semibold text-slate-700 mb-2">
+                                    Message
+                                </label>
+
+                                <textarea id="message"
+                                          name="message"
+                                          rows="5"
+                                          required
+                                          class="contact-input resize-y"
+                                          placeholder="Write your message here..."></textarea>
+                            </div>
+
+                            <button type="submit"
+                                    class="primary-button inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl text-white font-semibold">
+                                Send Message
+                                <i data-feather="arrow-right" class="w-4 h-4"></i>
+                            </button>
+
+                            <p id="form-status"
+                               class="text-sm mt-4"
+                               aria-live="polite"></p>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-purple-100"
+            style="background:linear-gradient(120deg,#f5f2ff,#ffffff,#eafffd);">
+
+        <div class="max-w-6xl mx-auto px-6 py-10">
+
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+
+                <div class="text-center md:text-left">
+                    <a href="#home" class="text-2xl font-extrabold gradient-text">
+                        Himanshu Singh
+                    </a>
+
+                    <p class="text-slate-500 text-sm mt-2">
+                        MERN Stack Developer · B.Tech CSE
+                    </p>
+                </div>
+
+                <nav class="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-medium text-slate-600">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
+
+                <div class="flex gap-3">
+                    <a href=https://github.com/himanshusingh020
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="GitHub"
+                       class="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-purple-100 text-slate-700 hover:text-purple-600 transition">
+                        <i data-feather="github"></i>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/himanshu-singh-b7450b327"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="LinkedIn"
+                       class="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-purple-100 text-slate-700 hover:text-purple-600 transition">
+                        <i data-feather="linkedin"></i>
                     </a>
                 </div>
             </div>
-        </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="py-20 bg-gray-900/50">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold mb-16 text-center" data-aos="fade-up">My Skills</h2>
+            <div class="border-t border-purple-100 mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+                <p class="text-sm text-slate-500 text-center">
+                    © <span id="current-year"></span> Himanshu Singh. All rights reserved.
+                </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-                    <!-- Technical Skills -->
-                    <div data-aos="fade-right">
-                        <h3 class="text-xl font-semibold mb-6 flex items-center">
-                            <i data-feather="code" class="mr-3 text-indigo-500"></i> Technical Skills
-                        </h3>
-                        <div class="space-y-6">
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span>HTML/CSS</span>
-                                    <span>90%</span>
-                                </div>
-                                <div class="w-full bg-gray-700 rounded-full h-2">
-                                    <div class="bg-indigo-500 h-2 rounded-full skill-bar" style="width: 90%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span>JavaScript</span>
-                                    <span>80%</span>
-                                </div>
-                                <div class="w-full bg-gray-700 rounded-full h-2">
-                                    <div class="bg-indigo-500 h-2 rounded-full skill-bar" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span>React.js</span>
-                                    <span>85%</span>
-                                </div>
-                                <div class="w-full bg-gray-700 rounded-full h-2">
-                                    <div class="bg-indigo-500 h-2 rounded-full skill-bar" style="width: 85%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span>Bootstrap</span>
-                                    <span>85%</span>
-                                </div>
-                                <div class="w-full bg-gray-700 rounded-full h-2">
-                                    <div class="bg-indigo-500 h-2 rounded-full skill-bar" style="width: 80%"></div>
-                                </div>
-                                <div class="flex justify-between mb-2">
-                                    <span>Python</span>
-                                    <span>90%</span>
-                                </div>
-
-
-                                <div class="w-full bg-gray-700 rounded-full h-2">
-                                    <div class="bg-indigo-500 h-2 rounded-full skill-bar" style="width: 90%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Professional Skills -->
-                    <div data-aos="fade-left">
-                        <h3 class="text-xl font-semibold mb-6 flex items-center">
-                            <i data-feather="user" class="mr-3 text-indigo-500"></i> Professional Skills
-                        </h3>
-                        <div class="space-y-6">
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span>UI/UX Design</span>
-                                    <span>90%</span>
-                                </div>
-                                <div class="w-full bg-gray-700 rounded-full h-2">
-                                    <div class="bg-indigo-500 h-2 rounded-full skill-bar" style="width: 90%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span>Communication</span>
-                                    <span>85%</span>
-                                </div>
-                                <div class="w-full bg-gray-700 rounded-full h-2">
-                                    <div class="bg-indigo-500 h-2 rounded-full skill-bar" style="width: 85%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span>Team Work</span>
-                                    <span>90%</span>
-                                </div>
-                                <div class="w-full bg-gray-700 rounded-full h-2">
-                                    <div class="bg-indigo-500 h-2 rounded-full skill-bar" style="width: 95%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span>Problem Solving</span>
-                                    <span>80%</span>
-                                </div>
-                                <div class="w-full bg-gray-700 rounded-full h-2">
-                                    <div class="bg-indigo-500 h-2 rounded-full skill-bar" style="width: 88%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tools & Technologies -->
-                <div class="mt-20" data-aos="fade-up">
-                    <h3 class="text-xl font-semibold mb-8 text-center">Tools & Technologies</h3>
-                    <div class="flex flex-wrap justify-center gap-6">
-                        <div
-                            class="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center p-3 hover:bg-indigo-500/10 transition">
-                            <img src="html.png" alt="HTML" class="w-full h-full">
-                        </div>
-                        <div
-                            class="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center p-3 hover:bg-indigo-500/10 transition">
-                            <img src="css.png" alt="CSS" class="w-full h-full">
-                        </div>
-                        <div
-                            class="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center p-3 hover:bg-indigo-500/10 transition">
-                            <img src="javascript.png" alt="javascript" class="w-full h-full">
-                        </div>
-                        <div
-                            class="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center p-3 hover:bg-indigo-500/10 transition">
-                            <img src="react.png" alt="React" class="w-full h-full">
-                        </div>
-                        <div
-                            class="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center p-3 hover:bg-indigo-500/10 transition">
-                            <img src="bootstrap.png" alt="Vue.js" class="w-full h-full">
-                        </div>
-                        <div
-                            class="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center p-3 hover:bg-indigo-500/10 transition">
-                            <img src="tailwind-css-icon.png" alt="Tailwind CSS" class="w-full h-full">
-                        </div>
-                        <div
-                            class="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center p-3 hover:bg-indigo-500/10 transition">
-                            <img src="node.js.png" alt="Node.js" class="w-full h-full">
-                        </div>
-                        <div
-                            class="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center p-3 hover:bg-indigo-500/10 transition">
-                            <img src="mongoDB.png" alt="MongoDB" class="w-full h-full">
-                        </div>
-                        <div
-                            class="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center p-3 hover:bg-indigo-500/10 transition">
-                            <img src="python.png" alt="python" class="w-full h-full">
-                        </div>
-                        <div
-                            class="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center p-3 hover:bg-indigo-500/10 transition">
-                            <img src="githuh.png" alt="Githup" class="w-full h-full">
-                        </div>
-                    </div>
-                </div>
+                <a href="#home"
+                   class="text-sm font-semibold gradient-text">
+                    Back to top ↑
+                </a>
             </div>
-        </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-20">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold mb-4 text-center" data-aos="fade-up">Get In Touch</h2>
-                <p class="text-gray-400 text-center mb-16 max-w-2xl mx-auto" data-aos="fade-up">Have a project in mind
-                    or want to discuss potential opportunities? Feel free to reach out!</p>
-
-                <div class="flex flex-col md:flex-row gap-12 max-w-6xl mx-auto">
-                    <div class="md:w-1/2" data-aos="fade-right">
-                        <div class="bg-gray-800 rounded-xl p-8 h-full">
-                            <h3 class="text-xl font-semibold mb-6">Contact Information</h3>
-                            <div class="space-y-6">
-                                <div class="flex items-start">
-                                    <div class="bg-indigo-500/10 p-3 rounded-lg mr-4">
-                                        <i data-feather="mail" class="text-indigo-500"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-medium">Email</h4>
-                                        <p class="text-gray-400">dhanjisingh00002007@gmail.com</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start">
-                                    <div class="bg-indigo-500/10 p-3 rounded-lg mr-4">
-                                        <i data-feather="map-pin" class="text-indigo-500"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-medium">Location</h4>
-                                        <p class="text-gray-400">lucknow (up)</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start">
-                                    <div class="bg-indigo-500/10 p-3 rounded-lg mr-4">
-                                        <i data-feather="phone" class="text-indigo-500"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-medium">Phone</h4>
-                                        <p class="text-gray-400">+91 9142031301</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-10">
-                                <h4 class="font-medium mb-4">Follow Me</h4>
-                                <div class="flex space-x-4">
-                                    <a href="https://github.com/Himanshurajput-12" target="_blank"
-                                        class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-indigo-500 transition">
-                                        <i data-feather="github" class="text-white">
-
-                                        </i>
-                                    </a>
-
-                                  <a href="https://www.linkedin.com/in/himanshu-singh-b7450b327" target="_blank"
-                                      class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-indigo-500 transition">
-                                      <i data-feather="linkedin" class="text-white"></i>
-                                  </a>
-
-
-
-
-
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="md:w-1/2" data-aos="fade-left">
-                        <form class="bg-gray-800 rounded-xl p-8">
-                            <div class="mb-6">
-                                <label for="name" class="block mb-2 font-medium">Your Name</label>
-                                <input type="text" id="name"
-                                    class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                                    placeholder="John Doe">
-                            </div>
-                            <div class="mb-6">
-                                <label for="email" class="block mb-2 font-medium">Your Email</label>
-                                <input type="email" id="email"
-                                    class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                                    placeholder="john@example.com">
-                            </div>
-                            <div class="mb-6">
-                                <label for="subject" class="block mb-2 font-medium">Subject</label>
-                                <input type="text" id="subject"
-                                    class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                                    placeholder="Project Inquiry">
-                            </div>
-                            <div class="mb-6">
-                                <label for="message" class="block mb-2 font-medium">Message</label>
-                                <textarea id="message" rows="5"
-                                    class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                                    placeholder="Your message here..."></textarea>
-                            </div>
-                            <button type="submit"
-                                class="w-full px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg font-medium transition">Send
-                                Message</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-gray-900 py-12 border-t border-gray-800">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <a href="#" class="text-2xl font-bold gradient-text">Himanshu Singh</a>
-                    <p class="text-gray-400 mt-2">© 2027 Himanshu Singh. All rights reserved.</p>
-                </div>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-indigo-400 transition">Privacy Policy</a>
-                    <a href="#" class="text-gray-400 hover:text-indigo-400 transition">Terms of Service</a>
-                    <a href="#" class="text-gray-400 hover:text-indigo-400 transition">Sitemap</a>
-                </div>
-            </div>
         </div>
     </footer>
 
+    <!-- JAVASCRIPT -->
     <script>
-        // Mobile menu toggle
-        document.getElementById('menu-toggle').addEventListener('click', function () {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+        // Load Feather icons
+        if (window.feather) {
+            feather.replace();
+        }
 
-            // Change icon
-            const icon = this.querySelector('svg');
-            if (menu.classList.contains('hidden')) {
-                feather.replace();
-            } else {
-                icon.setAttribute('data-feather', 'x');
+        // Mobile navigation
+        const menuToggle = document.getElementById("menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuToggle.addEventListener("click", function () {
+            const isHidden = mobileMenu.classList.toggle("hidden");
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                String(!isHidden)
+            );
+
+            menuToggle.innerHTML = isHidden
+                ? '<i data-feather="menu"></i>'
+                : '<i data-feather="x"></i>';
+
+            if (window.feather) {
                 feather.replace();
             }
         });
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+        // Close menu when a navigation link is clicked
+        document.querySelectorAll(".mobile-link").forEach(function (link) {
+            link.addEventListener("click", function () {
+                mobileMenu.classList.add("hidden");
 
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.innerHTML = '<i data-feather="menu"></i>';
 
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-
-                    // Close mobile menu if open
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                        const menuToggle = document.getElementById('menu-toggle');
-                        const icon = menuToggle.querySelector('svg');
-                        icon.setAttribute('data-feather', 'menu');
-                        feather.replace();
-                    }
+                if (window.feather) {
+                    feather.replace();
                 }
             });
         });
 
-        // Animate skill bars on scroll
-        function animateSkillBars() {
-            const skillBars = document.querySelectorAll('.skill-bar');
-            skillBars.forEach(bar => {
-                const width = bar.style.width;
-                bar.style.width = '0';
-                setTimeout(() => {
-                    bar.style.width = width;
-                }, 100);
-            });
-        }
+        // Dynamic copyright year
+        document.getElementById("current-year").textContent =
+            new Date().getFullYear();
 
-        // Intersection Observer for skill bars
-        const skillsSection = document.getElementById('skills');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateSkillBars();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
+        // Contact form frontend demo
+        // This does not save messages or send emails without a backend.
+        const contactForm = document.getElementById("contact-form");
+        const formStatus = document.getElementById("form-status");
 
-        if (skillsSection) {
-            observer.observe(skillsSection);
-        }
+        contactForm.addEventListener("submit", function (event) {
+            event.preventDefault();
 
-        // Initialize animations
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true
+            formStatus.textContent =
+                "Thanks for reaching out! The backend is not connected to this form yet.";
+
+            formStatus.style.color = "#7657ff";
+
+            contactForm.reset();
         });
 
-        // Replace feather icons
-        feather.replace();
+        // Scroll animations
+        if (window.AOS) {
+            AOS.init({
+                duration: 700,
+                easing: "ease-out",
+                once: true,
+                offset: 60
+            });
+        }
     </script>
-</body>
 
+</body>
 </html>
